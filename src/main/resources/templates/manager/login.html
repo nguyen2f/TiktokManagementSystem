@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .login-container label {
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 8px 0 20px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .login-container button {
+            width: 100%;
+            background-color: blue;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .login-container button:hover {
+            background-color: #c1212d;
+        }
+
+        .login-container .register-link {
+            text-align: center;
+            display: block;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .login-container .register-link a {
+            color: blue;
+            text-decoration: none;
+        }
+
+        .login-container .register-link a:hover {
+            text-decoration: underline;
+        }
+
+        .login-container .forgotPass {
+            display: block;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .login-container {
+                padding: 20px;
+                border-radius: 15px;
+            }
+
+            .login-container h2 {
+                font-size: 20px;
+            }
+
+            .login-container button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 15px;
+                border-radius: 10px;
+            }
+
+            .login-container h2 {
+                font-size: 18px;
+            }
+
+            .login-container button {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .login-container label {
+                font-size: 12px;
+            }
+
+            .login-container input[type="text"],
+            .login-container input[type="password"] {
+                padding: 8px;
+                font-size: 14px;
+            }
+
+            .login-container .register-link {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h2>Đăng Nhập</h2>
+    <form th:action="@{/manager/login}" method="POST">
+        <label for="phoneNumber">Số điện thoại:</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Nhập số điện thoại" required>
+
+        <label for="password">Mật khẩu:</label>
+        <input type="password" id="password" name="password" placeholder="Nhập mật khẩu" required>
+
+        <button type="submit">ĐĂNG NHẬP</button>
+
+        <div class="forgotPass">
+            <a href="">Quên mật khẩu</a>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>

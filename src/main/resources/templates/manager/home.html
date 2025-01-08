@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Hệ Thống Quản Lý Bán Hàng TikTok</title>
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    .chart-container {
+      width: 100%;
+      max-width: 1000px;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<div class="container">
+  <!-- Biểu đồ trạng thái đơn hàng -->
+  <div class="chart-container">
+    <h1>Thống Kê Trạng Thái Đơn Hàng</h1>
+    <canvas id="orderChart"></canvas>
+  </div>
+
+  <!-- Biểu đồ thống kê doanh thu -->
+  <div class="chart-container">
+    <h1>Thống Kê Doanh Thu Theo Ngày</h1>
+    <canvas id="dailyRevenueChart"></canvas>
+  </div>
+</div>
+
+<script>
+  // Biểu đồ trạng thái đơn hàng
+  fetch('/api/order-statistics')
+          .then(response => response.json())
+          .then(data => {
+            const formattedData = {
+              completed: data.COMPLETED || 0,
+              processing: data.PROCESSING || 0,
+              pending: data.PENDING || 0,
+              cancelled: data.CANCELLED || 0
+            };
+
+            const ctxOrder = document.getElementById('orderChart').getContext('2d');
+            new Chart(ctxOrder, {
+              type: 'bar',
+              data: {
+                labels: ['Completed', 'Processing', 'Pending', 'Cancelled'],
+                datasets: [{
+                  label: 'Số lượng đơn hàng',
+                  data: [
+                    formattedData.completed,
+                    formattedData.processing,
+                    formattedData.pending,
+                    formattedData.cancelled
+                  ],
+                  backgroundColor: [
+                    'rgba(75, 192, 192, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(255, 99, 132, 0.6)'
+                  ],
+                  borderColor: [
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(255, 99, 132, 1)'
+                  ],
+                  borderWidth: 1
+                }]
+              },
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Thống Kê Trạng Thái Đơn Hàng'
+                  }
+                },
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          })
+          .catch(error => console.error('Lỗi khi tải dữ liệu:', error));
+
+  // Biểu đồ doanh thu
+  fetch('/api/daily-revenue')
+          .then(response => response.json())
+          .then(data => {
+            const labels = data.map(item => item.date); // Ngày từ API
+            const revenues = data.map(item => item.revenue); // Doanh thu từ API
+
+            const ctxRevenue = document.getElementById('dailyRevenueChart').getContext('2d');
+            new Chart(ctxRevenue, {
+              type: 'line',
+              data: {
+                labels: labels,
+                datasets: [{
+                  label: 'Doanh Thu (VNĐ)',
+                  data: revenues,
+                  borderColor: 'rgba(75, 192, 192, 1)',
+                  backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                  borderWidth: 2,
+                  pointBackgroundColor: 'rgba(75, 192, 192, 1)',
+                }]
+              },
+              options: {
+                responsive: true,
+                plugins: {
+                  legend: {
+                    position: 'top',
+                  },
+                  title: {
+                    display: true,
+                    text: 'Thống Kê Doanh Thu Theo Ngày'
+                  }
+                },
+                scales: {
+                  x: {
+                    title: {
+                      display: true,
+                      text: 'Ngày'
+                    }
+                  },
+                  y: {
+                    title: {
+                      display: true,
+                      text: 'Doanh Thu (VNĐ)'
+                    },
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+          })
+          .catch(error => console.error('Lỗi khi lấy dữ liệu:', error));
+</script>
+
+<!--
+  <div class="dashboard-header">
+    <h2>Tổng quan</h2>
+    <div class="filter-section">
+      <select>
+        <option>Sắp xếp</option>
+      </select>
+      <input type="date" th:value="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">
+    </div>
+  </div>
+-->
+  <!-- Data Table -->
+  <!-- <table class="data-table">
+     <thead>
+     <tr>
+       <th>Kênh bán</th>
+       <th>Doanh thu</th>
+       <th>Số đơn</th>
+       <th>GTTB</th>
+       <th>Ads</th>
+       <th>Lợi nhuận</th>
+     </tr>
+     </thead>
+     <tbody>
+
+     <tr th:each="channel : ${channels}">
+       <td>
+         <img class="channel-icon" th:src="@{'/images/' + ${channel.icon}}" th:alt="${channel.name}">
+         <span th:text="${channel.name}">Tổng</span>
+       </td>
+       <td th:text="${channel.revenue}">0</td>
+       <td th:text="${channel.orders}">0</td>
+       <td th:text="${channel.averageValue}">0</td>
+       <td th:text="${channel.ads}">0</td>
+       <td th:text="${channel.profit}">0</td>
+     </tr>
+
+     </tbody>
+   </table>-->
+
+</div>
+
+<!-- Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</body>
+</html>

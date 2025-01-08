@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tạo Báo Cáo</title>
+</head>
+<body>
+<h1>Tạo Báo Cáo Mới</h1>
+
+<form th:action="@{/manager/create-report}" th:object="${report}" method="post">
+    <div>
+        <label for="content">Nội Dung Báo Cáo:</label>
+        <textarea id="content" th:field="*{content}" required></textarea>
+    </div>
+    <div>
+        <button type="submit">Tạo Báo Cáo</button>
+    </div>
+</form>
+</body>
+</html>

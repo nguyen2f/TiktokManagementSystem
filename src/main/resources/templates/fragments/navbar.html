@@ -1,0 +1,120 @@
+
+<!-- Navbar -->
+<div th:fragment="navbar">
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-brand">
+            <img th:src="@{/images/logo.png}" alt="Logo">
+            <span>Quản Lý Bán Hàng</span>
+        </div>
+        <div class="navbar-right">
+            <a href="" class="notification-icon">
+                <i class="fas fa-bell"></i>
+            </a>
+            <a href="#" class="settings-icon">
+                <i class="fas fa-cog"></i>
+            </a>
+            <!-- Logout Button -->
+            <form th:action="@{/manager/logout}" method="post" style="display: inline;">
+                <button type="submit" class="btn btn-logout">Đăng xuất</button>
+            </form>
+        </div>
+    </nav>
+
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <div class="nav-item">
+            <a th:href="@{/manager/home}" class="active">Tổng quan</a>
+        </div>
+
+        <div class="nav-item">
+            <a href="" class="has-dropdown">Sản phẩm</a>
+            <div class="dropdown-menu">
+                <a th:href="@{/manager/list-products}">Danh sách sản phẩm </a>
+                <a th:href="@{/manager/create-product}"> Thêm sản phầm </a>
+                <div class="dropdown-divider"></div>
+                <a href="https://wanna.fashion/">Quản lý Model 3D</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a href="" class="has-dropdown">Kho hàng</a>
+            <div class="dropdown-menu">
+                <a th:href="@{/manager/list-products}">Danh sách sản phẩm </a>
+                <a th:href="@{/manager/create-product}">Thêm sản phẩm </a>
+                <a href="#">Tồn kho</a>
+                <a href="#">Nhập kho</a>
+                <a href="#">Xuất kho</a>
+                <div class="dropdown-divider"></div>
+                <a href="#">Kiểm kho</a>
+                <a href="#">Báo cáo kho</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a href="" class="has-dropdown">Đồng bộ kênh bán</a>
+            <div class="dropdown-menu">
+                <a href="#">TikTok Shop</a>
+                <a href="#">Shopee</a>
+                <a href="#">Lazada</a>
+                <div class="dropdown-divider"></div>
+                <a href="#">Thêm kênh bán</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a href="" class="has-dropdown">Đơn hàng</a>
+            <div class="dropdown-menu">
+                <a th:href="@{/manager/list-orders}"> Tất cả đơn hàng </a>
+                <a th:href="@{/manager/list-complaints}"> Quản lý đơn khiếu nại</a>
+                <div class="dropdown-divider"></div>
+                <a href="#">Đơn mới</a>
+                <a href="#">Đơn đang xử lý</a>
+                <a href="#">Đơn đã giao</a>
+                <a href="#">Đơn hủy</a>
+                <div class="dropdown-divider"></div>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a href="" class="has-dropdown">Quản lý người dùng</a>
+            <div class="dropdown-menu">
+                <a th:href="@{/manager/list-customers}">Quản lý khách hàng </a>
+                <a th:href="@{/manager/list-employees}">Quản lý nhân viên </a>
+                <div class="dropdown-divider"></div>
+                <a th:href="@{/manager/create-employee}"> Tạo nhân viên </a>
+                <a th:href="@{/manager/list-employees}"> Cập nhật nhân viên </a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a th:href="@{/manager/home}" class="has-dropdown">Báo cáo</a>
+            <div class="dropdown-menu">
+                <a href="#">Báo cáo doanh thu</a>
+                <a href="#">Báo cáo lợi nhuận</a>
+                <a href="#">Báo cáo bán hàng</a>
+                <a href="#">Báo cáo tồn kho</a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a href="" class="has-dropdown">Khuyến mãi</a>
+            <div class="dropdown-menu">
+                <a th:href="@{/manager/list-promotions}">Quản lý khuyến mãi </a>
+                <div class="dropdown-divider"></div>
+                <a th:href="@{/manager/create-promotion}"> Tạo khuyến mãi </a>
+            </div>
+        </div>
+
+        <div class="nav-item">
+            <a href="" class="has-dropdown">Cài đặt</a>
+            <div class="dropdown-menu">
+                <a href="#">Thông tin cửa hàng</a>
+                <a href="#">Cấu hình hệ thống</a>
+                <a href="#">Quản lý người dùng</a>
+                <a href="#">Phân quyền</a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
